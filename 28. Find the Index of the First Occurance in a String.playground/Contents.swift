@@ -2,29 +2,31 @@ import SwiftUI
 
 class Solution {
     func strStr(_ haystack: String, _ needle: String) -> Int {
-        guard needle.count < haystack.count else { return -1 }
-        if !haystack.contains(needle) {
-            return -1
-        } else {
-            var startWindow = 0
-            var endWindow = (haystack.count - needle.count) - 1
-            var arrHay = Array(haystack)
-            while endWindow < arrHay.count {
-                var arrNeed = Array(needle)
-                for i in arrHay[startWindow..<endWindow] {
-                    if i == arrNeed[0] {
-                        arrNeed = Array(arrNeed.dropFirst())
-                    }
+        guard needle.count <= haystack.count else { return -1 }
+        
+        var haystackArray = Array(haystack)
+        var haystackPointer = 0
+        var needleArray = Array(needle)
+        var needlePointer = 0
+        
+        var testOccurance = 0
+        var startingOccurance = -1
+        
+        while haystackPointer <= (haystack.count - 1) {
+            if haystackArray[haystackPointer] == needleArray[needlePointer] {
+                testOccurance = haystackPointer
+                needlePointer += 1
+                haystackPointer += 1
+                if needlePointer == needle.count - 1 {
+                    startingOccurance = testOccurance
                 }
-                if arrNeed.isEmpty {
-                    return startWindow
-                } else {
-                    startWindow += 1
-                    endWindow += 1
-                }
+            } else {
+                haystackPointer += 1
+                needlePointer = 0
             }
         }
-        return -1
+        
+        return startingOccurance
     }
 }
 
