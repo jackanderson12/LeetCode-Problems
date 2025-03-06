@@ -11,7 +11,18 @@ public class ListNode {
 
 class Solution {
     func hasCycle(_ head: ListNode?) -> Bool {
-        gu
+        guard var node = head else { return false }
+        var visitedNodes: [ListNode] = []
+        while node.next != nil {
+            for i in visitedNodes {
+                if i === node {
+                    return true
+                }
+            }
+            visitedNodes.append(node)
+            node = node.next!
+        }
+        return false
     }
 }
 
