@@ -16,17 +16,24 @@ public class TreeNode {
 
 class Solution {
     func invertTree(_ root: TreeNode?) -> TreeNode? {
-        var bNode = root
-        var prevNode = root
-        while bNode?.left != nil {
-            bNode = bNode!.left
-        }
-        if bNode?.right != nil {
-            
-        }
-        return nil
+        guard var bNode = root else { return nil }
+        
+        //recursively visit the left side
+        var leftSideSwap = invertTree(bNode.left)
+        //recursively visit the right side
+        var rightSideSwap = invertTree(bNode.right)
+        
+        //swap left and right side
+        bNode.left = rightSideSwap
+        bNode.right = leftSideSwap
+        
+        return bNode
     }
 }
 
 var sol = Solution()
+var root = TreeNode(1, TreeNode(2), TreeNode(3))
+root = sol.invertTree(root)!
+print("root val: \(root.val), left val: \(root.left?.val ?? -1), right val: \(root.right?.val ?? -1)")
+
 
