@@ -19,6 +19,7 @@ class Solution {
     }
     
     func deepestLeavesSum(_ root: TreeNode?) -> Int {
+        guard var node = root else { return 0 }
         
         return 0
     }
